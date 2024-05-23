@@ -13,6 +13,7 @@ jobs:
       pull-requests: write
       contents: write
 
+    needs: approve
     steps:
     - name: Auto Merge
       uses: peter-evans/enable-pull-request-automerge@v2
