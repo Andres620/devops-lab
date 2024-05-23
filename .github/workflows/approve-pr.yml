@@ -2,20 +2,31 @@ name: Approve Pull Request
 
 on:
   pull_request:
-    types: [closed]
+    types: [opened, synchronize, reopened, ready_for_review]
     branches:
       - main
 
 jobs:
   approve:
-    if: github.event.pull_request.merged == false && github.event.pull_request.state == 'open'
     runs-on: ubuntu-latest
 
     steps:
     - name: Checkout repository
       uses: actions/checkout@v2
 
+    - name: Setup Node.js
+      uses: actions/setup-node@v2
+      with:
+        node-version: '14'
+
+    - name: Install dependencies
+      run: npm install
+
+    - name: Run tests
+      run: npm test
+
     - name: Comment on Pull Request
+      if: success()
       uses: actions/github-script@v6
       with:
         github-token: ${{ secrets.GITHUB_TOKEN }}
@@ -29,6 +40,7 @@ jobs:
           });
 
     - name: Add 'ready-to-merge' label
+      if: success()
       uses: actions/github-script@v6
       with:
         github-token: ${{ secrets.GITHUB_TOKEN }}
