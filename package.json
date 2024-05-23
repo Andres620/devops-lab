@@ -1,0 +1,20 @@
+{
+    "name": "devops-lab",
+    "version": "1.0.0",
+    "description": "",
+    "main": "index.js",
+    "scripts": {
+      "start": "node app/index.js",
+      "test": "jest"
+    },
+    "dependencies": {
+      "express": "^4.17.1",
+      "supertest": "^6.1.6"
+    },
+    "devDependencies": {
+      "jest": "^29.4.3"
+    },
+    "author": "",
+    "license": "ISC"
+  }
+  
